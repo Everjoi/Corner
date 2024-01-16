@@ -14,7 +14,7 @@ namespace Corner.Network
         public List<TxOut> Outputs { get; set; }
 
         public byte Version { get; set; }
-        public string LockTime { get; set; }
+        public DateTime LockTime { get; set; }
 
 
 

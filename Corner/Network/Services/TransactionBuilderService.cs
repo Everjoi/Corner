@@ -1,12 +1,7 @@
 ﻿using Corner.Network.Cryptography.Interfaces;
 using Corner.Network.Interfaces.Rules;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
+
 
 namespace Corner.Network.Services
 {
@@ -15,30 +10,22 @@ namespace Corner.Network.Services
         private const int TransactionVersion = 0;
         private readonly IEncryptor _encryptor;
         private readonly IRule[] _rules;
-        private Block<Transaction> _block;
-        private Blockchain<Transaction> _blockchain;
 
-        public TransactionBuilderService(IEncryptor encryptor,IRule[] rules, Block<Transaction> block)
+
+        public TransactionBuilderService(IEncryptor encryptor,IRule[] rules)
         {
             _encryptor = encryptor;
             _rules = rules; // GetAllRules() from reflection 
-            _block = block;
         }
 
 
-        public string Sign(Transaction transaction, string privateKey)
+        public string Sign(TxIn transaction, string privateKey)
         {
-            var dataRaw = JsonSerializer.Serialize(transaction);
-
-            foreach(var input in transaction.Inputs)
-            {
-                input.Sign = _encryptor.Sign( dataRaw, privateKey);
-            }      
-
+            var dataRaw = JsonSerializer.Serialize(transaction); 
             return _encryptor.Sign(dataRaw, privateKey);
         }
 
-        public bool IsValid(string publicKey, Transaction transaction, string sign)
+        public bool IsValid(string publicKey, TxIn transaction, string sign)
         {
             var data = JsonSerializer.Serialize(transaction);
             return IsValid(publicKey,data,sign);
@@ -52,17 +39,18 @@ namespace Corner.Network.Services
 
         public Transaction Build(List<TxIn> inputs, List<TxOut> outputs)
         {
+            // check rules (txin sign & other)
+
             var transaction = new Transaction()
             {
                 Version = TransactionVersion,
                 Inputs = inputs,
                 Outputs = outputs,
+                LockTime = DateTime.UtcNow,
             };
 
             return transaction;
         }
-
-
 
 
     }

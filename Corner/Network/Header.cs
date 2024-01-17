@@ -1,25 +1,19 @@
-﻿using Corner.Network.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+﻿using System.Text;
 
 namespace Corner.Network
 {
-    public sealed class Header  
+    public sealed class Header
     {
         private uint version;
-        private string prevHash; 
-        private string merkleRoot; 
+        private string prevHash;
+        private string merkleRoot;
         private ulong timestamp;
         private ulong nonce;
         private uint index;
         private byte primaryIndex;
-        private string nextConsensus;  
+        private string nextConsensus;
 
- 
+
 
         public uint Version
         {
@@ -46,7 +40,7 @@ namespace Corner.Network
         public ulong Timestamp
         {
             get => timestamp;
-            set { timestamp = value;}
+            set { timestamp = value; }
         }
 
         public ulong Nonce
@@ -77,7 +71,7 @@ namespace Corner.Network
         }
 
 
-        
+
 
 
         public int Size =>
@@ -89,6 +83,6 @@ namespace Corner.Network
            sizeof(uint) +      // Index
            sizeof(byte) +      // PrimaryIndex
            Encoding.UTF8.GetByteCount(nextConsensus);  // NextConsensus   
-               
+
     }
 }

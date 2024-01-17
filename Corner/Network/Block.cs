@@ -1,16 +1,9 @@
 ﻿using Corner.Network.Cryptography.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.PortableExecutable;
 using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
-using System.Transactions;
 
 namespace Corner.Network
 {
-    public sealed class Block<T> : IHashable
+    public sealed class Block<T>:IHashable
     {
         public Header _header;
         public List<T> Data { get; set; }
@@ -29,10 +22,10 @@ namespace Corner.Network
         }
 
         // The hash of the previous block.
-        public string PrevHash => _header.PrevHash; 
+        public string PrevHash => _header.PrevHash;
 
         // The merkle root of the transactions.
-        public string MerkleRoot => _header.MerkleRoot;  
+        public string MerkleRoot => _header.MerkleRoot;
 
         // The version of the block.
         public uint Version => _header.Version;
@@ -50,7 +43,7 @@ namespace Corner.Network
         public byte PrimaryIndex => _header.PrimaryIndex;
 
         // The multi-signature address of the consensus nodes that generates the next block.
-        public string NextConsensus => _header.NextConsensus; 
+        public string NextConsensus => _header.NextConsensus;
 
         // The witness of the block.
         //public Witness Witness => _header.Witness;

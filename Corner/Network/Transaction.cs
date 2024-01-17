@@ -1,6 +1,4 @@
 ﻿using Corner.Network.Cryptography.Interfaces;
-using Corner.Network.Interfaces;
-using System.Security.Cryptography;
 
 
 namespace Corner.Network
@@ -27,7 +25,7 @@ namespace Corner.Network
         {
             get
             {
-                _hash ??= this.CalculateHash(Inputs, Outputs);
+                _hash ??= this.CalculateHash(Inputs,Outputs);
                 return _hash;
             }
         }
@@ -38,7 +36,7 @@ namespace Corner.Network
             {
                 if(_size == 0)
                 {
-                    _size = HeaderSize; 
+                    _size = HeaderSize;
                 }
                 return _size;
             }

@@ -2,9 +2,9 @@
 
 namespace Corner.Network
 {
-    public class TxIn : ISignable
+    public class TxIn:ISignable
     {
         public TxOut Output { get; set; }
-        public string Sign { get; set; }   
+        public string Sign { get; set; }
     }
 }

@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Corner.Network.Cryptography.Interfaces;
 using System.Security.Cryptography;
-using System.Security.Cryptography.X509Certificates;
 using System.Text;
-using System.Threading.Tasks;
-using Corner.Network.Cryptography.Interfaces;
 
 namespace Corner.Network.Cryptography
 {
-    public class RSAEncryptor: BaseEncryptor, IRSAEncryptor
+    public class RSAEncryptor:BaseEncryptor, IRSAEncryptor
     {
 
         public override string Sign(string data,string privateKey)
@@ -59,7 +54,7 @@ namespace Corner.Network.Cryptography
             return Convert.ToBase64String(cryptoProvider.Encrypt(bytes,false));
         }
 
-        
+
         public byte[] GetArray(RSAParameters p)
         {
             var length =
@@ -127,6 +122,6 @@ namespace Corner.Network.Cryptography
             return provider;
         }
 
-      
+
     }
 }

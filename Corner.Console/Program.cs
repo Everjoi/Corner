@@ -1,7 +1,7 @@
 ﻿using Corner.Network;
 using Corner.Network.Cryptography;
-using Corner.Network.Services;
 using Corner.Network.Interfaces.Rules;
+using Corner.Network.Services;
 using Corner.Network.Services.Rules;
 
 
@@ -29,7 +29,7 @@ namespace Corner.CLI
                     Sign = encrypthor.Sign($"{user1.PublicKey}:{10}", user1.SecretKey)
                 }
             };
-            
+
 
             var output = new List<TxOut>
             {
@@ -41,7 +41,7 @@ namespace Corner.CLI
 
             IRule[] rules = { new BalanceValidationRule(),new SignValidationRule(encrypthor,blockchain._blocks) };
             var transactionBuilder = new TransactionBuilderService(encrypthor,rules);
-            
+
             var transaction = transactionBuilder.Build(input,output);
 
 

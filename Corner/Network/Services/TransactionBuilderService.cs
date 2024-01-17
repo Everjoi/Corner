@@ -5,7 +5,7 @@ using System.Text.Json;
 
 namespace Corner.Network.Services
 {
-    public class TransactionBuilderService 
+    public class TransactionBuilderService
     {
         private const int TransactionVersion = 0;
         private readonly IEncryptor _encryptor;
@@ -19,27 +19,27 @@ namespace Corner.Network.Services
         }
 
 
-        public string Sign(TxIn transaction, string privateKey)
+        public string Sign(TxIn transaction,string privateKey)
         {
-            var dataRaw = JsonSerializer.Serialize(transaction); 
-            return _encryptor.Sign(dataRaw, privateKey);
+            var dataRaw = JsonSerializer.Serialize(transaction);
+            return _encryptor.Sign(dataRaw,privateKey);
         }
 
-        public bool IsValid(string publicKey, TxIn transaction, string sign)
+        public bool IsValid(string publicKey,TxIn transaction,string sign)
         {
             var data = JsonSerializer.Serialize(transaction);
             return IsValid(publicKey,data,sign);
         }
 
-        public bool IsValid(string publicKey, string data, string sign)
+        public bool IsValid(string publicKey,string data,string sign)
         {
             return _encryptor.VerifySign(publicKey,data,sign);
         }
 
 
-        public Transaction Build(List<TxIn> inputs, List<TxOut> outputs)
+        public Transaction Build(List<TxIn> inputs,List<TxOut> outputs)
         {
-   
+
             var transaction = new Transaction()
             {
                 Version = TransactionVersion,

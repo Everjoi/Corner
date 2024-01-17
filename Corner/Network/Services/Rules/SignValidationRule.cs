@@ -1,14 +1,5 @@
-﻿using Corner.Network.Cryptography;
-using Corner.Network.Cryptography.Interfaces;
-using Corner.Network.Interfaces;
+﻿using Corner.Network.Cryptography.Interfaces;
 using Corner.Network.Interfaces.Rules;
-using NBitcoin;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Corner.Network.Services.Rules
 {
@@ -17,7 +8,7 @@ namespace Corner.Network.Services.Rules
         private IEncryptor _encryptor;
         private readonly List<Block<Transaction>> _blockchain;
 
-        public SignValidationRule(IEncryptor encryptor, List<Block<Transaction>> blockchain)
+        public SignValidationRule(IEncryptor encryptor,List<Block<Transaction>> blockchain)
         {
             _encryptor = encryptor;
             _blockchain = blockchain;

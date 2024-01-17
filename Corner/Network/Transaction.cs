@@ -27,7 +27,7 @@ namespace Corner.Network
         {
             get
             {
-                _hash ??= this.CalculateHash(Inputs, Outputs,Version,LockTime);
+                _hash ??= this.CalculateHash(Inputs, Outputs);
                 return _hash;
             }
         }

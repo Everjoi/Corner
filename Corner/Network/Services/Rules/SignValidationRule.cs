@@ -6,6 +6,7 @@ using NBitcoin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -24,25 +25,19 @@ namespace Corner.Network.Services.Rules
 
         public bool Validate(Transaction newTransaction)
         {
+
             foreach(var input in newTransaction.Inputs)
             {
-                TxOut correspondingOutput = GetCorrespondingOutput(input);
-
-                bool isSignatureValid = _encryptor.VerifySign(correspondingOutput.Adress,newTransaction.Hash,input.Sign);
+                string inputData = $"{input.Output.Adress}:{input.Output.Amount}";
+                bool isSignatureValid = _encryptor.VerifySign(input.Output.Adress,inputData,input.Sign);
 
                 if(!isSignatureValid)
                 {
-                    return false; 
+                    return false;
                 }
             }
 
-            return true;  
-        }
-
-        private TxOut GetCorrespondingOutput(TxIn input)
-        {
-
-           
+            return true;
         }
     }
 }

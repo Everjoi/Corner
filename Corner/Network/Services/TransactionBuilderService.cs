@@ -39,8 +39,7 @@ namespace Corner.Network.Services
 
         public Transaction Build(List<TxIn> inputs, List<TxOut> outputs)
         {
-            // check rules (txin sign & other)
-
+   
             var transaction = new Transaction()
             {
                 Version = TransactionVersion,
@@ -48,6 +47,12 @@ namespace Corner.Network.Services
                 Outputs = outputs,
                 LockTime = DateTime.UtcNow,
             };
+
+            foreach(var rule in _rules)
+            {
+                if(!rule.Validate(transaction))
+                    throw new ApplicationException("does not meet the requirements rule");
+            }
 
             return transaction;
         }

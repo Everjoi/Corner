@@ -20,7 +20,6 @@ namespace Corner.Network.Services.Rules
             {
                 totalInputs += input.Output.Amount;
             }
-
             
             return totalOutputs <= totalInputs;
         }

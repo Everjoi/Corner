@@ -13,11 +13,7 @@ namespace Corner.Network
         {
             get
             {
-                if(_hash == null)
-                {
-                    _hash = this.CalculateHash(Data,_header.PrevHash);
-                }
-                return _hash;
+                return this.CalculateHash(Data,_header.PrevHash,Nonce);
             }
         }
 
@@ -31,7 +27,7 @@ namespace Corner.Network
         public uint Version => _header.Version;
 
         //The timestamp of the block.
-        public ulong Timestamp => _header.Timestamp;
+        public string Timestamp => _header.Timestamp;
 
         //The random number of the block.
         public ulong Nonce => _header.Nonce;
@@ -44,9 +40,6 @@ namespace Corner.Network
 
         // The multi-signature address of the consensus nodes that generates the next block.
         public string NextConsensus => _header.NextConsensus;
-
-        // The witness of the block.
-        //public Witness Witness => _header.Witness;
 
         // Size of block 
         public int Size => _header.Size + Encoding.UTF8.GetByteCount(Helper.Serialize(Data));

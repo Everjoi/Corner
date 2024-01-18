@@ -1,4 +1,5 @@
 ﻿using Corner.Network;
+using Corner.Network.Consensus;
 using Corner.Network.Cryptography;
 using Corner.Network.Interfaces.Rules;
 using Corner.Network.Services;
@@ -11,16 +12,19 @@ namespace Corner.CLI
     {
         static void Main(string[] args)
         {
+            //var complexity = (int)(Math.Log2(blockchain._blocks.Count + 1) + 1);
+
             // 1 - setup blockchain
+            var consensus = new ProofOfWorkConsensus<Transaction>();
             var encrypthor = new RSAEncryptor();
-            var blockchain = new Blockchain<Transaction>();
+            var blockchain = new Blockchain<Transaction>(consensus);
 
             // create user (wallet)
             var user1 = encrypthor.GenerateKeys();
             var user2 = encrypthor.GenerateKeys();
 
             // user1 do transation to user2
-
+            
             var input = new List<TxIn>
             {
                 new TxIn
@@ -45,7 +49,7 @@ namespace Corner.CLI
             var transaction = transactionBuilder.Build(input,output);
 
 
-            blockchain.PerformAction(transaction);
+            blockchain.PerformAction(transaction);     
         }
     }
 }

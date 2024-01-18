@@ -1,4 +1,5 @@
-﻿using Corner.Network.Cryptography.Interfaces;
+﻿using Corner.Network.Consensus.Interfaces;
+using Corner.Network.Cryptography.Interfaces;
 using Corner.Network.Interfaces.Rules;
 using System.Text.Json;
 
@@ -11,11 +12,10 @@ namespace Corner.Network.Services
         private readonly IEncryptor _encryptor;
         private readonly IRule[] _rules;
 
-
-        public TransactionBuilderService(IEncryptor encryptor,IRule[] rules)
+        public TransactionBuilderService(IEncryptor encryptor,IRule[] rules )
         {
             _encryptor = encryptor;
-            _rules = rules; // GetAllRules() from reflection 
+            _rules = rules;  
         }
 
 

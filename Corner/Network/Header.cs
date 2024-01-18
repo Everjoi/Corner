@@ -7,7 +7,7 @@ namespace Corner.Network
         private uint version;
         private string prevHash;
         private string merkleRoot;
-        private ulong timestamp;
+        private string timestamp;
         private ulong nonce;
         private uint index;
         private byte primaryIndex;
@@ -37,7 +37,7 @@ namespace Corner.Network
         }
 
 
-        public ulong Timestamp
+        public string Timestamp
         {
             get => timestamp;
             set { timestamp = value; }

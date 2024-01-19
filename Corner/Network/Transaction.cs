@@ -4,7 +4,7 @@ using Corner.Network.Interfaces;
 
 namespace Corner.Network
 {
-    public sealed class Transaction:IHashable , IBlockchainData
+    public sealed class Transaction:IBlockchainData
     {
         private int _size;
         private string _hash = null;
@@ -27,7 +27,7 @@ namespace Corner.Network
             get
             {
                 if(_id == null)
-                    _id= new Guid().ToString();
+                    _id= Guid.NewGuid().ToString();  // TODO: change GUID
                 return _id;
             } 
         }
@@ -36,7 +36,7 @@ namespace Corner.Network
         {
             get
             {
-                _hash ??= this.CalculateHash(Inputs,Outputs);
+                _hash ??= this.CalculateHash(Inputs,Outputs,Id);
                 return _hash;
             }
         }

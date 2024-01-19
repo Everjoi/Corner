@@ -73,7 +73,7 @@ namespace Corner.Network
             }
         }
 
-
+        public int MiningTimeSeconds { get; set; }
 
     }
 }

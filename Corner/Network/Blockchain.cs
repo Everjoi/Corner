@@ -28,7 +28,8 @@ namespace Corner.Network
 
 
 
-        public List<Block<TData>> Blocks {
+        public List<Block<TData>> Blocks 
+        {
             get
             {
                 return _blocks;
@@ -56,9 +57,10 @@ namespace Corner.Network
         {
             var block = new Block<TData>()
             {
-                Header = _hederBuilder.BuildBlockHeader(),
-                Data = data
+                Header = _hederBuilder.BuildBlockHeader(data),
+                Data = data,       
             };
+
             _hederBuilder._prevBlock = block;
             // hash - PoW
             var hash = _consensus.Mine(block);

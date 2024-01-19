@@ -2,6 +2,11 @@
 
 using Corner.Network.Interfaces;
 using NBitcoin.RPC;
+using System.Runtime.Intrinsics.Arm;
+using System.Security.Cryptography;
+using System.Text;
+using System.Text.Json;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Corner.Network.Services
 {
@@ -17,13 +22,13 @@ namespace Corner.Network.Services
             _prevBlock = prevBlock;
         }
 
-        public Header BuildBlockHeader()
+        public Header BuildBlockHeader(List<TData> data)
         {
             var blockHeader = new Header()
             {
                 Nonce = 0,
                 Height = _height,
-                MerkleRoot = CreateMerkleRoot(),
+                MerkleRoot = CreateMerkleRoot(data),
                 Version = Version,
                 Timestamp = DateTime.Now.ToString(),
                 NextConsensus = "PoW",
@@ -34,10 +39,43 @@ namespace Corner.Network.Services
         }
 
 
-        private string CreateMerkleRoot()
+        private string CreateMerkleRoot(List<TData> dataList)
         {
-            return string.Empty;
+
+            List<string> merkleTree = new List<string>(dataList.Select(data=>data.Hash));
+
+            while(merkleTree.Count > 1)
+            {
+                List<string> newTreeLevel = new List<string>();
+
+                for(int i = 0;i < merkleTree.Count;i += 2)
+                {
+                    string combinedHash = (i + 1 < merkleTree.Count) ?
+                                          CombineAndHash(merkleTree[i],merkleTree[i + 1]) :
+                                          CombineAndHash(merkleTree[i],merkleTree[i]);
+
+                    newTreeLevel.Add(combinedHash);
+                }
+
+                merkleTree = newTreeLevel;
+            }
+
+            return merkleTree.FirstOrDefault()!;
         }
+
+        private string CombineAndHash(string hash1,string hash2)
+        {
+           
+            string combined = hash1 + hash2;
+            byte[] combinedBytes = Encoding.UTF8.GetBytes(combined);
+
+            using(SHA256 sha256 = SHA256.Create())
+            {
+                byte[] hashedBytes = sha256.ComputeHash(combinedBytes);
+                return BitConverter.ToString(hashedBytes).Replace("-","").ToLower();
+            }
+        }
+
 
     }
 }

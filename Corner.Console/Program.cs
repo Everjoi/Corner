@@ -18,13 +18,18 @@ namespace Corner.CLI
             var consensus = new ProofOfWorkConsensus<Transaction>();
             var encrypthor = new RSAEncryptor();
             var blockchain = new Blockchain<Transaction>(consensus);
-
+            consensus._blockchain = blockchain;
             // create user (wallet)
             var user1 = encrypthor.GenerateKeys();
             var user2 = encrypthor.GenerateKeys();
 
             // user1 do transation to user2
+
+            for(int i = 0;i < 5000;i++)
+            {
+
             
+
             var input = new List<TxIn>
             {
                 new TxIn
@@ -49,7 +54,8 @@ namespace Corner.CLI
             var transaction = transactionBuilder.Build(input,output);
 
 
-            blockchain.PerformAction(transaction);     
+            blockchain.PerformAction(transaction);
+            }
         }
     }
 }

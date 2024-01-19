@@ -4,70 +4,62 @@ namespace Corner.Network
 {
     public sealed class Header
     {
-        private uint version;
-        private string prevHash;
-        private string merkleRoot;
-        private string timestamp;
-        private ulong nonce;
-        private uint index;
-        private byte primaryIndex;
-        private string nextConsensus;
-
+        private uint _version;
+        private string _prevHash;
+        private string _merkleRoot;
+        private string _timestamp;
+        private ulong _nonce;
+        private uint _height;
+        private string _nextConsensus;
 
 
         public uint Version
         {
-            get => version;
-            set { version = value; }
+            get => _version;
+            set { _version = value; }
         }
 
 
         public string PrevHash
         {
-            get => prevHash;
-            set { prevHash = value; }
+            get => _prevHash;
+            set { _prevHash = value; }
 
         }
 
 
         public string MerkleRoot
         {
-            get => merkleRoot;
-            set { merkleRoot = value; }
+            get => _merkleRoot;
+            set { _merkleRoot = value; }
         }
 
 
         public string Timestamp
         {
-            get => timestamp;
-            set { timestamp = value; }
+            get => _timestamp;
+            set { _timestamp = value; }
         }
 
         public ulong Nonce
         {
-            get => nonce;
-            set { nonce = value; }
+            get => _nonce;
+            set { _nonce = value; }
         }
 
 
-        public uint Index
+        public uint Height
         {
-            get => index;
-            set { index = value; }
+            get => _height;
+            set { _height = value; }
         }
 
-
-        public byte PrimaryIndex
-        {
-            get => primaryIndex;
-            set { primaryIndex = value; }
-        }
 
 
         public string NextConsensus
         {
-            get => nextConsensus;
-            set { nextConsensus = value; }
+            get => _nextConsensus;
+            set { _nextConsensus = value; }
         }
 
 
@@ -76,13 +68,13 @@ namespace Corner.Network
 
         public int Size =>
            sizeof(uint) +      // Version
-           Encoding.UTF8.GetByteCount(prevHash) +    // PrevHash    
-           Encoding.UTF8.GetByteCount(merkleRoot) +    // MerkleRoot   
+           Encoding.UTF8.GetByteCount(_prevHash) +    // PrevHash    
+           Encoding.UTF8.GetByteCount(_merkleRoot) +    // MerkleRoot   
            sizeof(ulong) +     // Timestamp
            sizeof(ulong) +      // Nonce
            sizeof(uint) +      // Index
            sizeof(byte) +      // PrimaryIndex
-           Encoding.UTF8.GetByteCount(nextConsensus);  // NextConsensus   
+           Encoding.UTF8.GetByteCount(_nextConsensus);  // NextConsensus   
 
     }
 }

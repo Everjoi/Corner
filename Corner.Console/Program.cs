@@ -43,7 +43,7 @@ namespace Corner.CLI
                 new TxOut { Adress = user1.PublicKey, Amount = 5 }
             };
 
-            IRule[] rules = { new BalanceValidationRule(),new SignValidationRule(encrypthor,blockchain._blocks) };
+            IRule[] rules = { new BalanceValidationRule(),new SignValidationRule(encrypthor,blockchain.Blocks) };
             var transactionBuilder = new TransactionBuilderService(encrypthor,rules);
 
             var transaction = transactionBuilder.Build(input,output);

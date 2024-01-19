@@ -8,12 +8,12 @@ using System.Text.Json;
 
 namespace Corner.Network
 {
-    public sealed class Blockchain<TData>:IBlockchain<TData> where TData : new()
+    public sealed class Blockchain<TData>:IBlockchain<TData> where TData : IBlockchainData, new()
     {
         private readonly HeaderBuilderService<TData> _hederBuilder; // build header 
         private Block<TData> _lastBlock; // last block in blockchain 
         private static List<TData> _dataList;
-        public readonly List<Block<TData>> _blocks; // blocks in blockchain 
+        private readonly List<Block<TData>> _blocks; // blocks in blockchain 
         private readonly IConsensus<TData> _consensus; // pow pos 
 
         public Blockchain(IConsensus<TData> consensus)
@@ -26,6 +26,14 @@ namespace Corner.Network
             _hederBuilder = new HeaderBuilderService<TData>(genesis);
         }
 
+
+
+        public List<Block<TData>> Blocks {
+            get
+            {
+                return _blocks;
+            }
+        }
 
         public void AddBlock(Block<TData> block)
         {
@@ -48,7 +56,7 @@ namespace Corner.Network
         {
             var block = new Block<TData>()
             {
-                _header = _hederBuilder.BuildBlockHeader(),
+                Header = _hederBuilder.BuildBlockHeader(),
                 Data = data
             };
             _hederBuilder._prevBlock = block;
@@ -74,7 +82,7 @@ namespace Corner.Network
         {
             var genesisBlock = new Block<TData>
             {
-                _header = new Header()
+                Header = new Header()
                 {
                     Timestamp = DateTime.Now.ToString(),
                     PrevHash = "",

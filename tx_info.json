@@ -1,0 +1,56 @@
+{
+  "block_height": -1,
+  "block_index": -1,
+  "hash": "000000ad58bdde313c6a34d41c1d570ae0c939975f0488676d1d4ba4e6d3f992",
+  "addresses": [
+    "bc1p0nv6ddcwc0ntqa3f4ukh829quq5du4fyjgqpcc737jh6pdyw3smqgmwt2s",
+    "bc1pdq8wzmvt9dnuu42jdrkcl6925hemucc44adkwfn99nz63t8matcqr7tgk4"
+  ],
+  "total": 10049030,
+  "fees": 6930,
+  "size": 205,
+  "vsize": 154,
+  "preference": "low",
+  "relayed_by": "83.54.19.234:8333",
+  "received": "2024-01-19T10:19:26.789Z",
+  "ver": 1,
+  "double_spend": false,
+  "vin_sz": 1,
+  "vout_sz": 2,
+  "opt_in_rbf": true,
+  "confirmations": 0,
+  "inputs": [
+    {
+      "prev_hash": "000000adcb62b7f1e7a30eb2465e711232cdd2e660f3901d3bb402792365fd4b",
+      "output_index": 1,
+      "output_value": 10055960,
+      "sequence": 217577,
+      "addresses": [
+        "bc1p0nv6ddcwc0ntqa3f4ukh829quq5du4fyjgqpcc737jh6pdyw3smqgmwt2s"
+      ],
+      "script_type": "pay-to-taproot",
+      "age": 0,
+      "witness": [
+        "920f79e0837a97f93c706a5c63b7eb719a37969ca62dc2158ca64d8b4fe07d87cf03570cb33c9666876a28ff5461bfc52784c576f2db5892080034a9e835845d"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "value": 108190,
+      "script": "5120680ee16d8b2b67ce555268ed8fe8aaa5f3be6315af5b6726652cc5a8acfbeaf0",
+      "addresses": [
+        "bc1pdq8wzmvt9dnuu42jdrkcl6925hemucc44adkwfn99nz63t8matcqr7tgk4"
+      ],
+      "script_type": "pay-to-taproot"
+    },
+    {
+      "value": 9940840,
+      "script": "51207cd9a6b70ec3e6b07629af2d73a8a0e028de552492001c63d1f4afa0b48e8c36",
+      "addresses": [
+        "bc1p0nv6ddcwc0ntqa3f4ukh829quq5du4fyjgqpcc737jh6pdyw3smqgmwt2s"
+      ],
+      "script_type": "pay-to-taproot"
+    }
+  ]
+}

@@ -1,12 +1,14 @@
 ﻿using Corner.Network.Cryptography.Interfaces;
+using Corner.Network.Interfaces;
 
 
 namespace Corner.Network
 {
-    public sealed class Transaction:IHashable
+    public sealed class Transaction:IHashable , IBlockchainData
     {
         private int _size;
         private string _hash = null;
+        private string _id;
 
         public List<TxIn> Inputs { get; set; }
         public List<TxOut> Outputs { get; set; }
@@ -20,6 +22,15 @@ namespace Corner.Network
            sizeof(byte) +  //Version
            sizeof(uint);  //Nonce
 
+
+        public string Id { 
+            get
+            {
+                if(_id == null)
+                    _id= new Guid().ToString();
+                return _id;
+            } 
+        }
 
         public string Hash
         {
@@ -41,5 +52,8 @@ namespace Corner.Network
                 return _size;
             }
         }
+
+        public ulong Fees { get; set; }
+
     }
 }

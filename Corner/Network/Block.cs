@@ -1,48 +1,79 @@
 ﻿using Corner.Network.Cryptography.Interfaces;
+using Corner.Network.Interfaces;
+using NBitcoin.Protocol;
 using System.Text;
 
 namespace Corner.Network
 {
-    public sealed class Block<T>:IHashable
+    public sealed class Block<T>:IHashable where T : IBlockchainData
     {
-        public Header _header;
-        public List<T> Data { get; set; }
+        private Header _header;
         private string _hash;
+        private int _transactionCount;
+        private ulong _totalFees;
+        private List<string> _dataIds;
+
+        public List<T> Data { get; set; }
+
+        public Header Header
+        {
+            get
+            {
+                return _header;
+            }
+            set
+            {
+                _header = value;
+            }
+        }
 
         public string Hash
         {
             get
             {
-                return this.CalculateHash(Data,_header.PrevHash,Nonce);
+                _hash = this.CalculateHash(Data,_header.PrevHash,Nonce);
+                return _hash;
             }
         }
 
-        // The hash of the previous block.
         public string PrevHash => _header.PrevHash;
-
-        // The merkle root of the transactions.
         public string MerkleRoot => _header.MerkleRoot;
-
-        // The version of the block.
         public uint Version => _header.Version;
-
-        //The timestamp of the block.
         public string Timestamp => _header.Timestamp;
-
-        //The random number of the block.
         public ulong Nonce => _header.Nonce;
-
-        // The index of the block.
-        public uint Index => _header.Index;
-
-        // The primary index of the consensus node that generated this block.
-        public byte PrimaryIndex => _header.PrimaryIndex;
-
-        // The multi-signature address of the consensus nodes that generates the next block.
+        public uint Index => _header.Height;
         public string NextConsensus => _header.NextConsensus;
 
-        // Size of block 
         public int Size => _header.Size + Encoding.UTF8.GetByteCount(Helper.Serialize(Data));
+
+        public int TransactionCount
+        {
+            get 
+            {
+                _transactionCount = Data.Count;
+                return _transactionCount;
+            }
+        }
+
+        public ulong TotalFees
+        {
+            get 
+            {
+                _totalFees = Data.Aggregate(0UL,(sum,data) => sum + data.Fees);
+                return _totalFees;
+            }
+        }
+
+        public List<string> DataIds
+        {
+            get
+            {
+                _dataIds = Data.Select(data => data.Id).ToList();
+                return _dataIds;
+            }
+        }
+
+
 
     }
 }

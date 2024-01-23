@@ -1,4 +1,6 @@
-﻿namespace Corner.Network.Cryptography.Interfaces
+﻿using Corner.Cryptography;
+
+namespace Corner.Cryptography.Interfaces
 {
     public interface IEncryptor
     {

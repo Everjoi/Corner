@@ -1,6 +1,4 @@
-﻿ 
-
-namespace Corner.Network.Cryptography
+﻿namespace Corner.Cryptography
 {
     public class KeyPair
     {

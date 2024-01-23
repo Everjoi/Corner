@@ -1,7 +1,5 @@
-﻿using Corner.Network.Consensus.Interfaces;
-using Corner.Network.Cryptography.Interfaces;
+﻿using Corner.Cryptography.Interfaces;
 using Corner.Network.Interfaces.Rules;
-using System.Text.Json;
 
 
 namespace Corner.Network.Services
@@ -9,36 +7,24 @@ namespace Corner.Network.Services
     public class TransactionBuilderService
     {
         private const int TransactionVersion = 0;
-        private readonly IEncryptor _encryptor;
+        //private readonly IEncryptor _encryptor;
         private readonly IRule[] _rules;
+        private const decimal FeeTax = 0.001M;
 
-        public TransactionBuilderService(IEncryptor encryptor,IRule[] rules )
+        public TransactionBuilderService(IEncryptor encryptor,IRule[] rules)
         {
-            _encryptor = encryptor;
-            _rules = rules;  
+            //_encryptor = encryptor;
+            _rules = rules;
         }
 
 
-        public string Sign(TxIn transaction,string privateKey)
-        {
-            var dataRaw = JsonSerializer.Serialize(transaction);
-            return _encryptor.Sign(dataRaw,privateKey);
-        }
 
-        public bool IsValid(string publicKey,TxIn transaction,string sign)
-        {
-            var data = JsonSerializer.Serialize(transaction);
-            return IsValid(publicKey,data,sign);
-        }
 
-        public bool IsValid(string publicKey,string data,string sign)
-        {
-            return _encryptor.VerifySign(publicKey,data,sign);
-        }
 
 
         public Transaction Build(List<TxIn> inputs,List<TxOut> outputs)
         {
+            var fees = CalculateFees(inputs);
 
             var transaction = new Transaction()
             {
@@ -46,6 +32,7 @@ namespace Corner.Network.Services
                 Inputs = inputs,
                 Outputs = outputs,
                 LockTime = DateTime.UtcNow,
+                Fees = fees,
             };
 
             foreach(var rule in _rules)
@@ -57,6 +44,12 @@ namespace Corner.Network.Services
             return transaction;
         }
 
-
+        private decimal CalculateFees(List<TxIn> inputs)
+        {
+            var inputCount = (decimal)inputs.Count;
+            decimal totalInput = (decimal)inputs.Sum(inpt => inpt.Output.Amount);
+            decimal fees = (decimal)(inputCount * totalInput * FeeTax);
+            return fees;
+        }
     }
 }

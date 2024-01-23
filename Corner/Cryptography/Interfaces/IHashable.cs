@@ -1,5 +1,4 @@
-﻿
-namespace Corner.Network.Cryptography.Interfaces
+﻿namespace Corner.Cryptography.Interfaces
 {
     public interface IHashable
     {

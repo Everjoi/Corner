@@ -20,8 +20,8 @@ namespace Corner.Network.Services.Rules
             {
                 totalInputs += input.Output.Amount;
             }
-            
-            return totalOutputs <= totalInputs;
+
+            return totalOutputs + newTransaction.Fees <= totalInputs;
         }
     }
 }

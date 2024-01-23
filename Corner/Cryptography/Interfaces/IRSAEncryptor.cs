@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography;
- 
 
-namespace Corner.Network.Cryptography.Interfaces
+
+namespace Corner.Cryptography.Interfaces
 {
     public interface IRSAEncryptor : IEncryptor
     {

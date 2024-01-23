@@ -1,4 +1,4 @@
-﻿using Corner.Network.Cryptography.Interfaces;
+﻿using Corner.Cryptography.Interfaces;
 
 namespace Corner.Network.Interfaces
 {

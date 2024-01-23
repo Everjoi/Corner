@@ -43,7 +43,7 @@ namespace Corner.CLI
             var output = new List<TxOut>
             {
                 // User 2 receives some amount
-                new TxOut { Adress = user2.PublicKey, Amount = 5 },
+                new TxOut { Adress = user2.PublicKey, Amount = 4 },
                 // User 1 gets back the remaining amount (change)
                 new TxOut { Adress = user1.PublicKey, Amount = 5 }
             };

@@ -1,4 +1,4 @@
-﻿using Corner.Network.Cryptography.Interfaces;
+﻿using Corner.Cryptography.Interfaces;
 using Corner.Network.Interfaces;
 using NBitcoin.Protocol;
 using System.Text;
@@ -10,7 +10,7 @@ namespace Corner.Network
         private Header _header;
         private string _hash;
         private int _transactionCount;
-        private ulong _totalFees;
+        private decimal _totalFees;
         private List<string> _dataIds;
 
         public List<T> Data { get; set; }
@@ -55,11 +55,12 @@ namespace Corner.Network
             }
         }
 
-        public ulong TotalFees
+        public decimal TotalFees
         {
             get 
             {
-                _totalFees = Data.Aggregate(0UL,(sum,data) => sum + data.Fees);
+                //_totalFees = Data.Aggregate(0UL,(sum,data) => sum + data.Fees);
+                _totalFees = Data.Sum(x => x.Fees);
                 return _totalFees;
             }
         }

@@ -1,5 +1,4 @@
-﻿using Corner.Network.Cryptography.Interfaces;
-using Corner.Network.Interfaces;
+﻿using Corner.Network.Interfaces;
 
 
 namespace Corner.Network
@@ -15,7 +14,6 @@ namespace Corner.Network
 
         public byte Version { get; set; }
         public DateTime LockTime { get; set; }
-
 
 
         private const int HeaderSize =
@@ -53,7 +51,7 @@ namespace Corner.Network
             }
         }
 
-        public ulong Fees { get; set; }
+        public decimal Fees { get; set; }
 
     }
 }
